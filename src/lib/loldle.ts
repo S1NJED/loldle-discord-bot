@@ -69,7 +69,7 @@ export class LoldleBot extends LoldleWrapper {
     async getAnswerGame(gameType: string): Promise<string>
     {
         // Edit these values depends on your need
-        const REQ_PER_INTERVAL = 6;
+        const REQ_PER_INTERVAL = 5;
         const INTERVAL = 1500;
 
         var i = 0;
@@ -112,23 +112,31 @@ export class LoldleBot extends LoldleWrapper {
         })) )
         const totalTime = new Date().getTime() / 1000 - timeBefore;
         console.log(`Found all the answers in ${totalTime} seconds `);
+        console.log(answers);
         return (answers);
     }
 
     async getAnswersEmbed()
     {
         const answers = await this.getAllAnswers();
-        
+
+        // Get longest answer and all the spoiler answer will have the same length
+        const longestAnswerLength = Math.max(...answers.map(elem => elem.answer.length));
+        const padEndChar = "\u1CBC";
+        const date = new Date();
+
+        // SPoiler msg same length so no clue of the champs name
         return new EmbedBuilder()
             .setColor("#E8C14B")
-            .setTitle(`Loldle answers today`)
+            .setTitle(`Loldle answers ${date.getUTCDate()}/${date.getUTCMonth() < 10 ? '0' + (date.getUTCMonth() + 1) : date.getUTCMonth() + 1}/${date.getUTCFullYear()} `)
             .addFields(
-                { name: "❓ Classic", value: `Answer: ||${answers[0].answer}||` },
-                { name: "\" Quote", value: `Answer: ||${answers[1].answer}||` },
-                { name: "🔥 Ability", value: `Answer: ||${answers[2].answer}||` },
-                { name: "😀 Emoji", value: `Answer: ||${answers[3].answer}||` },
-                { name: "🥸 Splash", value: `Answer: ||${answers[4].answer}||` }
+                { name: "❓ Classic", value: `Answer: ||${answers[0].answer.padEnd(longestAnswerLength, padEndChar)}||` },
+                { name: "\" Quote", value: `Answer: ||${answers[1].answer.padEnd(longestAnswerLength, padEndChar)}||` },
+                { name: "🔥 Ability", value: `Answer: ||${answers[2].answer.padEnd(longestAnswerLength, padEndChar)}||` },
+                { name: "😀 Emoji", value: `Answer: ||${answers[3].answer.padEnd(longestAnswerLength, padEndChar)}||` },
+                { name: "🥸 Splash", value: `Answer: ||${answers[4].answer.padEnd(longestAnswerLength, padEndChar)}||` }
             )
+            .setDescription("## [PLAY NOW](https://loldle.net/)")
     }
 
 }
