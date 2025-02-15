@@ -5,7 +5,7 @@ export const name = Events.GuildDelete;
 
 export async function execute(guild: Guild)
 {
-    const currGuildId = parseInt(guild.id as string);
+    const currGuildId = BigInt(guild.id as string);
     const db = new PrismaClient();
     await db.guilds.update({
         where: {

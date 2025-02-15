@@ -13,7 +13,7 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction)
 {
-    const currGuildId = parseInt(interaction.guildId as string);
+    const currGuildId = BigInt(interaction.guildId as string);
     const db = new PrismaClient();
     await db.guilds.update({
         where: {

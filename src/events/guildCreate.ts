@@ -10,7 +10,7 @@ export async function execute(guild: Guild)
     {
         await db.guilds.create({
             data: {
-                guild_id: parseInt(guild.id as string),
+                guild_id: BigInt(guild.id as string),
                 text_channel_id: 0
             }
         })

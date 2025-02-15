@@ -19,9 +19,9 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction)
 {
-    const currentGuildId = parseInt( interaction.guildId as string);
+    const currentGuildId = BigInt( interaction.guildId as string);
     const textChannel = interaction.options.get("text_channel");
-    const textChannelId = parseInt( textChannel?.value as string);
+    const textChannelId = BigInt( textChannel?.channel?.id as string);
 
     const db = new PrismaClient();
     await db.guilds.update({
