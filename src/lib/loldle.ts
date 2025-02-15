@@ -1,4 +1,5 @@
-import {load} from "cheerio";
+import {load, Cheerio} from "cheerio";
+import { EmbedBuilder, SKUFlagsString } from "discord.js";
 
 /* 
 classic -- 
@@ -9,6 +10,9 @@ splash --
 */
 class LoldleWrapper {
 
+    gameTypes: Array<string>;
+    names: Cheerio<string>;
+
     constructor() {
         this.gameTypes = [
             "classic",
@@ -17,6 +21,8 @@ class LoldleWrapper {
             "emoji",
             "splash"
         ]
+        //@ts-ignore
+        this.names = [];
         this.getAllChamps();
     }
 
@@ -31,7 +37,7 @@ class LoldleWrapper {
         this.names = names;
     }
 
-    async checkAnswer(championName, gameType)
+    async checkAnswer(championName: string, gameType: string)
     {
         if (!this.gameTypes.includes(gameType))
         {
@@ -60,7 +66,7 @@ class LoldleWrapper {
 
 export class LoldleBot extends LoldleWrapper {
 
-    async getAnswerGame(gameType)
+    async getAnswerGame(gameType: string): Promise<string>
     {
         // Edit these values depends on your need
         const REQ_PER_INTERVAL = 6;
@@ -68,7 +74,7 @@ export class LoldleBot extends LoldleWrapper {
 
         var i = 0;
 
-        // Each 1.5 seconds we send 3 req
+        // Each INTERVAL ms we send REQ_PER_INTERVAL req
         return await new Promise(resolve => {
             const interval = setInterval(async () => {
                 for (var _ = 0; _ < REQ_PER_INTERVAL; _++)
@@ -97,7 +103,7 @@ export class LoldleBot extends LoldleWrapper {
 
     }
 
-    async getAllAnswers()
+    async getAllAnswers(): Promise<Array<{ gameType: string; answer: String; }>>
     {
         const timeBefore = new Date().getTime() / 1000;
         const answers = await Promise.all( this.gameTypes.map(async (gameType, index) => ({
@@ -109,6 +115,21 @@ export class LoldleBot extends LoldleWrapper {
         return (answers);
     }
 
+    async getAnswersEmbed()
+    {
+        const answers = await this.getAllAnswers();
+        
+        return new EmbedBuilder()
+            .setColor("#E8C14B")
+            .setTitle(`Loldle answers today`)
+            .addFields(
+                { name: "❓ Classic", value: `Answer: ||${answers[0].answer}||` },
+                { name: "\" Quote", value: `Answer: ||${answers[1].answer}||` },
+                { name: "🔥 Ability", value: `Answer: ||${answers[2].answer}||` },
+                { name: "😀 Emoji", value: `Answer: ||${answers[3].answer}||` },
+                { name: "🥸 Splash", value: `Answer: ||${answers[4].answer}||` }
+            )
+    }
 
 }
 
