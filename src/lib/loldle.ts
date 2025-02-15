@@ -80,6 +80,8 @@ export class LoldleBot extends LoldleWrapper {
                 for (var _ = 0; _ < REQ_PER_INTERVAL; _++)
                 {
                     const currChampName = this.names[i];
+                    if (currChampName === undefined)
+                        continue;
                     const j = i; // need this because if REQ_PER_INTERVAL is at least 5 it goes too fast
 
                     this.checkAnswer(
@@ -103,7 +105,7 @@ export class LoldleBot extends LoldleWrapper {
 
     }
 
-    async getAllAnswers(): Promise<Array<{ gameType: string; answer: String; }>>
+    async getAllAnswers(): Promise<Array<{ gameType: string; answer: string; }>>
     {
         const timeBefore = new Date().getTime() / 1000;
         const answers = await Promise.all( this.gameTypes.map(async (gameType, index) => ({
@@ -116,9 +118,11 @@ export class LoldleBot extends LoldleWrapper {
         return (answers);
     }
 
-    async getAnswersEmbed()
+    async getAnswersEmbed(answersArg: Array<{gameType: string; answer: string}> = [])
     {
-        const answers = await this.getAllAnswers();
+        var answers = answersArg;
+        if (answers.length === 0)
+            answers = await this.getAllAnswers();
 
         // Get longest answer and all the spoiler answer will have the same length
         const longestAnswerLength = Math.max(...answers.map(elem => elem.answer.length));
