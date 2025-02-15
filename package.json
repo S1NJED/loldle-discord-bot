@@ -1,0 +1,22 @@
+{
+	"main": "dist/bot.js",
+	"type": "module",
+	
+	"dependencies": {
+		"@prisma/client": "^6.3.1",
+		"cheerio": "^1.0.0",
+		"discord.js": "^14.18.0",
+		"dotenv": "^16.4.7"
+	},
+	"scripts": {
+		"dev_class": "node src/lib/loldle.js dev",
+		"dev": "tsx watch src/bot.ts",
+		"build": "tsc",
+		"start": "node ."
+	},
+	"devDependencies": {
+		"@types/node": "^22.13.4",
+		"prisma": "^6.3.1",
+		"tsx": "^4.19.2"
+	}
+}
