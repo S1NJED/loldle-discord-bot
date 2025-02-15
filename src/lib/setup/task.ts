@@ -1,6 +1,6 @@
 import { Client, TextChannel } from "discord.js";
 import { PrismaClient } from "@prisma/client";
-import { LoldleBot } from "../loldle";
+import { LoldleBot } from "../loldle.js";
 
 export function startTask(client: Client)
 {
@@ -50,6 +50,7 @@ const task = setInterval(async () =>
                 await channel.send({
                     embeds: [embed]
                 })
+                
                 // clear interval
                 clearInterval(innerInterval);
             },0)

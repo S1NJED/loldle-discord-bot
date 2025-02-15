@@ -1,5 +1,5 @@
 import { Events, Message } from "discord.js";
-import { LoldleBot } from "../lib/loldle";
+import { LoldleBot } from "../lib/loldle.js";
 
 export const name = Events.MessageCreate;
 

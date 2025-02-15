@@ -6,9 +6,9 @@ import {
 } from "discord.js"
 
 import { config } from "dotenv";config();
-import { loadCommands } from "./lib/setup/commands";
-import { loadEvents } from "./lib/setup/events";
-import { startTask } from "./lib/setup/task";
+import { loadCommands } from "./lib/setup/commands.js";
+import { loadEvents } from "./lib/setup/events.js";
+import { startTask } from "./lib/setup/task.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __dirname = dirname(fileURLToPath(import.meta.url) );
@@ -30,10 +30,7 @@ const client = new Client({
 client.commands = new Collection();
 
 await loadCommands(client, __dirname);
-console.log('\n');
+console.log('\n==============\n');
 await loadEvents(client, __dirname);
-
 startTask(client);
-
-
 client.login(DISCORD_BOT_TOKEN);

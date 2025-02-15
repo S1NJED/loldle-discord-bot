@@ -11,11 +11,11 @@ export async function loadCommands(client: Client1, __dirname: string)
 {
     const foldersPath = path.join(__dirname, "commands");
     const commandsFolders = fs.readdirSync(foldersPath);
-    
+
     for (const folder of commandsFolders)
     {
         const commandsPath = path.join(foldersPath, folder);
-        const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".ts") );
+        const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js") || file.endsWith(".ts") );
     
         for (const file of commandFiles)
         {
