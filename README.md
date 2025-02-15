@@ -9,7 +9,7 @@ This bot send the answers of the loldle every day at midnight UTC+2
 
 # Invit link
 
-You can invit the discord bot with this [link](https://discord.com/oauth2/authorize?client_id=1340017969446654034&permissions=19456&integration_type=0&scope=bot)
+You can invit the discord bot with this [link](https://discord.com/oauth2/authorize?client_id=1340017969446654034&permissions=84992&integration_type=0&scope=bot)
 
 
 # TODO
