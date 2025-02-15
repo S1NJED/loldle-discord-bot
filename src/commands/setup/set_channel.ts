@@ -34,6 +34,6 @@ export async function execute(interaction: CommandInteraction)
     })
     await db.$disconnect();
     await interaction.reply(
-        `Sucessfully set channel ${textChannel?.name} `
+        `Sucessfully set channel ${textChannel?.channel?.name} `
     );
 }
