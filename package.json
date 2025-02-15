@@ -10,6 +10,8 @@
 	},
 	"scripts": {
 		"dev_class": "node src/lib/loldle.js dev",
+		"register": "pnpm tsx src/deploy-commands.ts",
+
 		"dev": "tsx watch src/bot.ts",
 		"build": "tsc",
 		"start": "node ."
