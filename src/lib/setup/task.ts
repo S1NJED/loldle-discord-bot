@@ -10,8 +10,8 @@ export function startTask(client: Client)
 
     const task = setInterval(async () => 
     {
-        //                                                                        Adding 60 seconds in case
-        const utcPlus2Date = new Date(new Date().getTime() + (2 * 60 * 60 * 1000) + 60*1000);
+        //                                                                     Adding 10 seconds in case
+        const utcPlus2Date = new Date(new Date().getTime() + (2 * 60 * 60 * 1000) - 10*1000);
 
         // midnight utc+2 so loldle has reset
         if (utcPlus2Date.getUTCHours() === 0)
